@@ -4,8 +4,9 @@ using System;
 
 public class MapGenerator : MonoBehaviour {
 
-	public int width;
-	public int height;
+	public int num_cells_x;
+	public int num_cells_y;
+	public int cell_width;
 
 	public string seed;
 	public bool useRandomSeed;
@@ -24,17 +25,17 @@ public class MapGenerator : MonoBehaviour {
 	}
 
 	void GenerateBaseMap() {
-		map = new Cell[width,height];
+		map = new Cell[num_cells_x,num_cells_y];
 
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
+		for (int x = 0; x < num_cells_x; x++) {
+			for (int y = 0; y < num_cells_y; y++) {
 				map [x, y] = new Cell (x, y);
 
 				if (x == 0) {
 					map [x, y].leftWallState = WallState.Border;
 				}
 
-				if (x == width - 1) {
+				if (x == num_cells_x - 1) {
 					map [x, y].rightWallState = WallState.Border;
 				}
 
@@ -42,7 +43,7 @@ public class MapGenerator : MonoBehaviour {
 					map [x, y].topWallState = WallState.Border;
 				}
 
-				if (x == height - 1) {
+				if (x == num_cells_y - 1) {
 					map [x, y].bottomWallState = WallState.Border;
 				}
 			}
@@ -51,7 +52,7 @@ public class MapGenerator : MonoBehaviour {
 
 	void ConstructMaze() {
 		int visited_cells = 1;
-		int total_cells = width * height;
+		int total_cells = num_cells_x * num_cells_y;
 
 		Stack<Cell> cell_stack = new Stack<Cell> ();
 
@@ -61,7 +62,7 @@ public class MapGenerator : MonoBehaviour {
 
 		System.Random rng = new System.Random(seed.GetHashCode());
 
-		Cell current_cell = map [rng.Next (0, width - 1), rng.Next (0, height - 1)];
+		Cell current_cell = map [rng.Next (0, num_cells_x - 1), rng.Next (0, num_cells_y - 1)];
 
 		while (visited_cells < total_cells) {
 
@@ -149,5 +150,61 @@ public class MapGenerator : MonoBehaviour {
 		}
 
 		return result;
+	}
+
+	void OnDrawGizmos() {
+		if (map != null){
+			int total_width = cell_width * num_cells_x;
+			int total_height = cell_width * num_cells_y;
+
+			for (int x = 0; x < num_cells_x; x++) {
+				for (int y = 0; y < num_cells_y; y++) {
+
+					Gizmos.color = Color.blue;
+					if (map [x, y].topWallState == WallState.Closed || map [x, y].topWallState == WallState.Border) {
+						if (map [x, y].topWallState == WallState.Border) {
+							Gizmos.color = Color.red;
+						}
+
+						Vector2 start_pt = new Vector2((x*cell_width)-(total_width/2),(y*cell_width)-(total_height/2));
+						Vector2 end_pt = new Vector2(((x+1)*cell_width)-(total_width/2), (y*cell_width)-(total_height/2));
+						Gizmos.DrawLine (start_pt, end_pt);
+					}
+
+					Gizmos.color = Color.blue;
+					if (map [x, y].bottomWallState == WallState.Closed || map [x, y].bottomWallState == WallState.Border) {
+						if (map [x, y].bottomWallState == WallState.Border) {
+							Gizmos.color = Color.red;
+						}
+
+						Vector2 start_pt = new Vector2((x*cell_width)-(total_width/2),((y+1)*cell_width)-(total_height/2));
+						Vector2 end_pt = new Vector2(((x+1)*cell_width)-(total_width/2), ((y+1)*cell_width)-(total_height/2));
+						Gizmos.DrawLine (start_pt, end_pt);
+					}
+
+					Gizmos.color = Color.blue;
+					if (map [x, y].leftWallState == WallState.Closed || map [x, y].leftWallState == WallState.Border) {
+						if (map [x, y].leftWallState == WallState.Border) {
+							Gizmos.color = Color.red;
+						}
+
+						Vector2 start_pt = new Vector2((x*cell_width)-(total_width/2),(y*cell_width)-(total_height/2));
+						Vector2 end_pt = new Vector2((x*cell_width)-(total_width/2), ((y+1)*cell_width)-(total_height/2));
+						Gizmos.DrawLine (start_pt, end_pt);
+					}
+
+					Gizmos.color = Color.blue;
+					if (map [x, y].rightWallState == WallState.Closed || map [x, y].rightWallState == WallState.Border) {
+						if (map [x, y].rightWallState == WallState.Border) {
+							Gizmos.color = Color.red;
+						}
+
+						Vector2 start_pt = new Vector2(((x+1)*cell_width)-(total_width/2),(y*cell_width)-(total_height/2));
+						Vector2 end_pt = new Vector2(((x+1)*cell_width)-(total_width/2), ((y+1)*cell_width)-(total_height/2));
+						Gizmos.DrawLine (start_pt, end_pt);
+					}
+				}
+			}
+		}
 	}
 }
