@@ -15,6 +15,7 @@ public class MapGenerator : MonoBehaviour {
 
 	void Start() {
 		GenerateBaseMap();
+		ConstructMaze();
 	}
 
 	void Update() {
@@ -43,7 +44,7 @@ public class MapGenerator : MonoBehaviour {
 					map [x, y].topWallState = WallState.Border;
 				}
 
-				if (x == num_cells_y - 1) {
+				if (y == num_cells_y - 1) {
 					map [x, y].bottomWallState = WallState.Border;
 				}
 			}
