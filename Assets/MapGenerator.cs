@@ -63,14 +63,14 @@ public class MapGenerator : MonoBehaviour {
 
 		System.Random rng = new System.Random(seed.GetHashCode());
 
-		Cell current_cell = map [rng.Next (0, num_cells_x - 1), rng.Next (0, num_cells_y - 1)];
+		Cell current_cell = map [rng.Next (num_cells_x), rng.Next (num_cells_y)];
 
 		while (visited_cells < total_cells) {
 
 			List<Cell> closed_neighbors = GetClosedNeighbors (current_cell);
 
 			if (closed_neighbors.Count > 0) {
-				Cell next_cell = closed_neighbors [rng.Next (0, closed_neighbors.Count - 1)];
+				Cell next_cell = closed_neighbors [rng.Next (closed_neighbors.Count)];
 
 				if (current_cell.x < next_cell.x) {
 					current_cell.rightWallState = WallState.Open;
