@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{97175F1F-7DF5-B276-8F47-0F92F01C3FF4}") = "UnityMazeGenerator", "Assembly-CSharp.csproj", "{8E74A2F1-49E3-D221-62BD-FC3B9C5D2479}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E74A2F1-49E3-D221-62BD-FC3B9C5D2479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E74A2F1-49E3-D221-62BD-FC3B9C5D2479}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E74A2F1-49E3-D221-62BD-FC3B9C5D2479}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E74A2F1-49E3-D221-62BD-FC3B9C5D2479}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
